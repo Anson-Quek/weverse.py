@@ -8,8 +8,8 @@ Weverse.py seeks to provide developers with a tool that allows them to make a bo
 
 ## Installation
 
-You can install Weverse.py by using a terminal of your choice, and typing `pip install weverse-py`.\
-Alternatively, you can install from source by typing `pip install git+https://github.com/Anson-Quek/weverse-py.git`.
+You can install Weverse.py by using a terminal of your choice, and typing `pip install weverse.py`.\
+Alternatively, you can install from source by typing `pip install git+https://github.com/Anson-Quek/weverse.py.git`.
 
 ## Disclaimer
 
