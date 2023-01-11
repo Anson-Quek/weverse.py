@@ -1,0 +1,12 @@
+.archive
+.env
+.venv/*
+.venv
+.vscode
+.vscode/*
+__pycache__
+*.egg-info/
+manual_tester.py
+_build
+build
+dist
