@@ -1,3 +1,5 @@
+[![Documentation Status](https://readthedocs.org/projects/weversepy/badge/?version=latest)](https://weversepy.readthedocs.io/en/latest/?badge=latest)
+
 # Weverse.py
 
 Weverse.py is a Python API Wrapper that interacts with Weverse's private API.
