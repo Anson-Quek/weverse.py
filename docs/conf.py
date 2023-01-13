@@ -15,7 +15,7 @@ sys.path.insert(0, os.path.abspath(".."))
 project = 'Weverse.py'
 copyright = '2023-Present, Anson Quek'
 author = 'Anson Quek'
-release = '1.0.0'
+release = '1.0.1'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
