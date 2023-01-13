@@ -194,20 +194,24 @@ class Member(PartialMember):
         The profile comment of the member, if any.
     has_joined: :class:`bool`
         Whether the member has joined the community.
-    has_membership: :class:`bool`
-        Whether the member has a paid membership to the community.
+    has_membership: :class:`bool` | :class:`None`
+        Whether the member has a paid membership to the community. Will
+        return :class:`None` if it is the :class:`Member` object of the group.
     is_official: :class:`bool`
         Whether the member is an official Weverse account.
-    is_hidden: :class:`bool`
-        Whether the member is hidden.
-    is_blinded: :class:`bool`
-        Whether the member is blinded.
+    is_hidden: :class:`bool` | :class:`None`
+        Whether the member is hidden. Will return :class:`None` if it is the
+        :class:`Member` object of the group.
+    is_blinded: :class:`bool` | :class:`None`
+        Whether the member is blinded. Will return :class:`None` if it is the
+        :class:`Member` object of the group.
     is_followed: :class:`bool`
         Whether the signed-in account is following the member.
     is_my_profile: :class:`bool`
         Whether the member is yourself.
-    first_joined_at: :class:`int`
-        The time the member first joined the community at, in epoch.
+    first_joined_at: :class:`int` | :class:`None`
+        The time the member first joined the community at, in epoch. Will return
+        :class:`None` if it is the :class:`Member` object of the group.
     follow_count: :class:`int` | :class:`None`
         The number of followers the member has, if available.
     artist_profile: :class:`ArtistProfile` | :class:`None`
@@ -236,13 +240,13 @@ class Member(PartialMember):
         self.profile_cover_image_url: str | None = data.get("profileCoverImageUrl")
         self.profile_comment: str | None = data.get("profileComment")
         self.has_joined: bool = data["joined"]
-        self.has_membership: bool = data["hasMembership"]
+        self.has_membership: bool | None = data.get("hasMembership")
         self.is_official: bool = data["hasOfficialMark"]
-        self.is_hidden: bool = data["hidden"]
-        self.is_blinded: bool = data["blinded"]
+        self.is_hidden: bool | None = data.get("hidden")
+        self.is_blinded: bool | None = data.get("blinded")
         self.is_followed: bool = data["followed"]
         self.is_my_profile: bool = data["myProfile"]
-        self.first_joined_at: int = data["firstJoinAt"]
+        self.first_joined_at: int | None = data.get("firstJoinAt")
         self.follow_count: int | None = (
             data["followCount"]["followerCount"] if "followCount" in data else None
         )
