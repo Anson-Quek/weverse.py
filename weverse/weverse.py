@@ -2,7 +2,7 @@ import asyncio
 import logging
 
 from .enums import NotificationType
-from .errors import NotFound, Forbidden
+from .errors import Forbidden, NotFound
 from .fetcher import WeverseFetcher
 from .objects.comment import Comment
 from .objects.community import Community, PartialCommunity
@@ -611,7 +611,12 @@ class WeverseClient:
 
                     elif notification.post_type == NotificationType.NOTICE:
                         if notification.community.id != 0:
-                            notice = await self.fetch_notice(notification.post_id)
+                            try:
+                                notice = await self.fetch_notice(notification.post_id)
+
+                            except Forbidden:
+                                continue
+
                             await self.on_new_notice(notice)
 
                 for comment in comments:
