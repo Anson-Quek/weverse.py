@@ -334,7 +334,13 @@ class WeverseFetcher:
         NotFound
             If the requested Weverse Notice does not exist.
         """
-        return await self.__fetch(weverse.url.notice_url(notice_id))
+        url = weverse.url.notice_url(notice_id)
+        data = await self.__fetch(url)
+
+        if "parentId" not in data:
+            raise weverse.errors.NotFound(url)
+
+        return data
 
     async def fetch_member(self, member_id: str) -> dict:
         """Retrieves the dictionary that contains the data of the specified
