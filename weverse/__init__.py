@@ -7,4 +7,4 @@ from .weverse import *
 __title__ = 'Weverse.py'
 __author__ = 'Anson Quek'
 __license__ = 'MIT'
-__version__ = '1.0.2'
+__version__ = '1.0.2.1'
