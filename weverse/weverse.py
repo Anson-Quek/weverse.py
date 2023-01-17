@@ -2,7 +2,7 @@ import asyncio
 import logging
 
 from .enums import NotificationType
-from .errors import NotFound
+from .errors import NotFound, Forbidden
 from .fetcher import WeverseFetcher
 from .objects.comment import Comment
 from .objects.community import Community, PartialCommunity
@@ -597,17 +597,21 @@ class WeverseClient:
                         await self.on_new_moment(moment)
 
                     elif notification.post_type == NotificationType.MEDIA:
-                        media = await self.fetch_media(notification.post_id)
-                        if media:  # Don't call this method when the media is paid.
-                            await self.on_new_media(media)
+                        try:
+                            media = await self.fetch_media(notification.post_id)
+
+                        except Forbidden:
+                            continue
+
+                        await self.on_new_media(media)
 
                     elif notification.post_type == NotificationType.LIVE:
                         live = await self.fetch_live(notification.post_id)
                         await self.on_new_live(live)
 
                     elif notification.post_type == NotificationType.NOTICE:
-                        notice = await self.fetch_notice(notification.post_id)
-                        if notice:  # Don't call this method for non-artist notice.
+                        if notification.community.id != 0:
+                            notice = await self.fetch_notice(notification.post_id)
                             await self.on_new_notice(notice)
 
                 for comment in comments:
