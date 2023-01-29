@@ -223,7 +223,7 @@ class WeverseClient:
             try:
                 artist_comments = await self.fetch_artist_comments(notification.post_id)
 
-            except NotFound:  # This is because the Post has been deleted.
+            except (Forbidden, NotFound):  # This is because the Post has been deleted.
                 continue
 
             if not old_cache.get(notification.post_id + notification.author.id):
@@ -589,7 +589,12 @@ class WeverseClient:
                     await self.on_new_notification(notification)
 
                     if notification.post_type == NotificationType.POST:
-                        post = await self.fetch_post(notification.post_id)
+                        try:
+                            post = await self.fetch_post(notification.post_id)
+
+                        except Forbidden:
+                            continue
+
                         await self.on_new_post(post)
 
                     elif notification.post_type == NotificationType.MOMENT:
@@ -606,7 +611,12 @@ class WeverseClient:
                         await self.on_new_media(media)
 
                     elif notification.post_type == NotificationType.LIVE:
-                        live = await self.fetch_live(notification.post_id)
+                        try:
+                            live = await self.fetch_live(notification.post_id)
+
+                        except Forbidden:
+                            continue
+
                         await self.on_new_live(live)
 
                     elif notification.post_type == NotificationType.NOTICE:
